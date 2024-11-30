@@ -15,4 +15,8 @@
     <ProjectReference Include="..\GA.Application\GA.Application.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Ga.Api.IntegrationTest" />
+	</ItemGroup>
+
 </Project>

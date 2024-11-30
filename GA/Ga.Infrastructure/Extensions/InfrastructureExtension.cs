@@ -2,8 +2,6 @@
 using Ga.Infrastructure.Data.Repositories;
 using Ga.Infrastructure.Options;
 using GA.Domain.Infrastructure.Data.Repositories;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
