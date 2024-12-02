@@ -30,24 +30,28 @@ namespace GA.Domain.Services.Movies
         public async Task<bool> SaveMoviesAsync(string pathToCsv, CancellationToken cancellationToken)
         {
             var dataLines = (await File.ReadAllLinesAsync(pathToCsv, cancellationToken)).Skip(1);
-            var movies = new List<Movie>();
-
-            foreach (var line in dataLines)
-            {
-                var movieLine = line.Split(";");
-                var movie = new Movie
-                {
-                    Year = int.Parse(movieLine[0]),
-                    Title = movieLine[1],
-                    Studios = movieLine[2],
-                    Producers = movieLine[3],
-                    IsWinner = movieLine[4] == "yes"
-                };
-
-                movies.Add(movie);
-            }
+            var movies = dataLines
+                            .SelectMany(line =>
+                            {
+                                var movieLine = line.Split(';');
+                                return GetProducers(movieLine[3])
+                                    .Select(producer => new Movie
+                                    {
+                                        Year = int.Parse(movieLine[0]),
+                                        Title = movieLine[1],
+                                        Studios = movieLine[2],
+                                        Producers = producer.Trim(),
+                                        IsWinner = movieLine[4] == "yes"
+                                    });
+                            })
+                            .ToList();
 
             return await SaveMoviesAsync(movies, cancellationToken);
+        }
+
+        private static string[] GetProducers(string producers)
+        {
+            return producers.Replace(" and ", ", ").Trim().Split(',');
         }
     }
 }

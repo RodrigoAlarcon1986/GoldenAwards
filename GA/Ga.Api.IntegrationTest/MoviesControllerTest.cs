@@ -7,7 +7,7 @@ namespace Ga.Api.IntegrationTest
     public class MoviesControllerTest
     {
         [Theory]
-        [InlineData("../../../CsvDataTest/movieslist.csv", 1, 1, 6, 6)]
+        [InlineData("../../../CsvDataTest/movieslist.csv", 1, 1, 1, 13)]
         [InlineData("../../../CsvDataTest/movieslist_1.csv", 2, 1, 1, 18)]
         [InlineData("../../../CsvDataTest/movieslist_2.csv", 2, 2, 5, 29)]
         [InlineData("../../../CsvDataTest/movieslist_3.csv", 1, 1, 18, 18)]
